@@ -1,25 +1,26 @@
-import { useCourtContext } from "../Context/CourtContext";
 import CenterInfo from "../components/CenterInfo";
-import CountryAndName from "../components/CountryAndName";
+import CountryAndNameEdit from "../components/CountryAndNameEdit";
 import Header from "../components/Header";
 import PlayerPoint from "../components/PlayerPoint";
 
-const Court1 = () => {
-  const { court1Info } = useCourtContext();
+const Court1Edit = () => {
   return (
     <main className='h-screen bg-black flex flex-col'>
       <Header matchDetails='Male Division | 68-70kg' />
       <div className='lg:flex justify-between'>
-        <CountryAndName
-          name={court1Info.player1.name}
+        <CountryAndNameEdit
+          playerNum='1'
           color='red'
-          country={court1Info.player1.country}
         />
-        <CountryAndName
-          name={court1Info.player2.name}
+        <CountryAndNameEdit
+          playerNum='2'
           color='blue'
-          country={court1Info.player2.country}
         />
+        {/* <CountryAndName
+          name='Worrawut Kamwilaisak'
+          color='blue'
+          country='Thailand'
+        /> */}
       </div>
       <div className='md:flex justify-center h-full'>
         <PlayerPoint
@@ -41,4 +42,4 @@ const Court1 = () => {
   );
 };
 
-export default Court1;
+export default Court1Edit;
