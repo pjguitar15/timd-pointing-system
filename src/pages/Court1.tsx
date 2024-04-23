@@ -24,14 +24,14 @@ const Court1 = () => {
       <div className='md:flex justify-center h-full'>
         <PlayerPoint
           color='red'
-          score={13}
+          playerNum='1'
         />
         <div className='hidden md:flex'>
           <CenterInfo />
         </div>
         <PlayerPoint
           color='blue'
-          score={17}
+          playerNum='2'
         />
         <div className='flex md:hidden'>
           <CenterInfo />

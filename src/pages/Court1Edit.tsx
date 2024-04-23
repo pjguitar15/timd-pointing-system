@@ -1,7 +1,7 @@
 import CenterInfo from "../components/CenterInfo";
 import CountryAndNameEdit from "../components/CountryAndNameEdit";
 import Header from "../components/Header";
-import PlayerPoint from "../components/PlayerPoint";
+import PlayerPointEdit from "../components/PlayerPointEdit";
 
 const Court1Edit = () => {
   return (
@@ -16,23 +16,18 @@ const Court1Edit = () => {
           playerNum='2'
           color='blue'
         />
-        {/* <CountryAndName
-          name='Worrawut Kamwilaisak'
-          color='blue'
-          country='Thailand'
-        /> */}
       </div>
       <div className='md:flex justify-center h-full'>
-        <PlayerPoint
+        <PlayerPointEdit
+          playerNum='1'
           color='red'
-          score={13}
         />
         <div className='hidden md:flex'>
           <CenterInfo />
         </div>
-        <PlayerPoint
+        <PlayerPointEdit
+          playerNum='2'
           color='blue'
-          score={17}
         />
         <div className='flex md:hidden'>
           <CenterInfo />

@@ -8,6 +8,8 @@ export type CourtContextType = {
   updatePlayer2Name: (name: string) => void;
   updatePlayer1Country: (name: string) => void;
   updatePlayer2Country: (name: string) => void;
+  updatePlayer1Point: (action: "increment" | "decrement") => void;
+  updatePlayer2Point: (action: "increment" | "decrement") => void;
 };
 
 type PlayerType = {
@@ -66,12 +68,40 @@ const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   };
 
+  const updatePlayer1Point = (action: "increment" | "decrement") => {
+    setCourt1Info((prevCourt1Info) => ({
+      ...prevCourt1Info,
+      player1: {
+        ...prevCourt1Info.player1,
+        point:
+          action === "increment"
+            ? prevCourt1Info.player1.point + 1
+            : prevCourt1Info.player1.point - 1,
+      },
+    }));
+  };
+
+  const updatePlayer2Point = (action: "increment" | "decrement") => {
+    setCourt1Info((prevCourt1Info) => ({
+      ...prevCourt1Info,
+      player2: {
+        ...prevCourt1Info.player2,
+        point:
+          action === "increment"
+            ? prevCourt1Info.player2.point + 1
+            : prevCourt1Info.player2.point - 1,
+      },
+    }));
+  };
+
   const contextValue: CourtContextType = {
     court1Info,
     updatePlayer1Name,
     updatePlayer2Name,
     updatePlayer1Country,
     updatePlayer2Country,
+    updatePlayer1Point,
+    updatePlayer2Point,
   };
 
   return (
