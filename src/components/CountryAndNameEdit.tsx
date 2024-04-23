@@ -60,7 +60,7 @@ const CountryAndNameEdit = ({
             ? updatePlayer1Name(e.target.value)
             : updatePlayer2Name(e.target.value)
         }
-        className='text-white text-lg md:text-xl lg:text-3xl bg-transparent outline-none'
+        className='text-white text-lg md:text-xl lg:text-3xl bg-transparent outline-white outline-2'
         type='text'
       />
     </div>

@@ -6,7 +6,7 @@ import PlayerPointEdit from "../components/PlayerPointEdit";
 const Court1Edit = () => {
   return (
     <main className='h-screen bg-black flex flex-col'>
-      <Header matchDetails='Male Division | 68-70kg' />
+      <Header />
       <div className='lg:flex justify-between'>
         <CountryAndNameEdit
           playerNum='1'

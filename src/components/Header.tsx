@@ -36,7 +36,7 @@ const Header = () => {
         <div className='flex gap-5 items-center'>
           {isEditMode ? (
             <input
-              className='text-white text-2xl font-semibold bg-transparent outline-none w-full'
+              className='text-white text-2xl font-semibold bg-transparent w-full'
               value={court1Info.matchDetails}
               onChange={(e) => updateMatchDetails(e.target.value)}
               type='text'
