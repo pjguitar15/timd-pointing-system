@@ -4,9 +4,11 @@ import legato from "../assets/legato.png";
 import { Link, useLocation } from "react-router-dom";
 import { MdModeEdit } from "react-icons/md";
 import { BsArrowLeftCircle } from "react-icons/bs";
-const Header = ({ matchDetails }: { matchDetails: string }) => {
+import { useCourtContext } from "../Context/CourtContext";
+const Header = () => {
   const location = useLocation();
   const isEditMode = location.pathname.slice(9) === "edit";
+  const { court1Info, updateMatchDetails } = useCourtContext();
   return (
     <header className='bg-black w-full'>
       <main className='flex justify-center md:justify-between py-2 px-4 md:px-20 lg:px-24 items-center'>
@@ -32,9 +34,21 @@ const Header = ({ matchDetails }: { matchDetails: string }) => {
         </div>
         {/* Middle */}
         <div className='flex gap-5 items-center'>
-          <h2 className='text-white md:text-2xl font-medium'>{matchDetails}</h2>
+          {isEditMode ? (
+            <input
+              className='text-white text-2xl font-semibold bg-transparent outline-none w-full'
+              value={court1Info.matchDetails}
+              onChange={(e) => updateMatchDetails(e.target.value)}
+              type='text'
+            />
+          ) : (
+            <h2 className='text-white md:text-2xl font-medium'>
+              {court1Info.matchDetails}
+            </h2>
+          )}
+
           {isEditMode && (
-            <p className='text-white underline'>You are in edit mode</p>
+            <p className='text-white underline w-60'>You are in edit mode</p>
           )}
           <button className='md:hidden px-3 py-1 border border-white text-white text-sm rounded-md hover:bg-white hover:text-black'>
             Go to Edit Mode

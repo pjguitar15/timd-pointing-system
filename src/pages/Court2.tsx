@@ -3,10 +3,10 @@ import CountryAndName from "../components/CountryAndName";
 import Header from "../components/Header";
 import PlayerPoint from "../components/PlayerPoint";
 
-const Court1 = () => {
+const Court2 = () => {
   return (
     <main className='h-screen bg-black flex flex-col'>
-      <Header matchDetails='Women Division | 55-60kg' />
+      <Header />
       <div className='lg:flex justify-between'>
         <CountryAndName
           name='Lim Do Hyun'
@@ -22,14 +22,14 @@ const Court1 = () => {
       <div className='md:flex justify-center h-full'>
         <PlayerPoint
           color='red'
-          score={3}
+          playerNum='1'
         />
         <div className='hidden md:flex'>
           <CenterInfo />
         </div>
         <PlayerPoint
           color='blue'
-          score={5}
+          playerNum='1'
         />
         <div className='flex md:hidden'>
           <CenterInfo />
@@ -39,4 +39,4 @@ const Court1 = () => {
   );
 };
 
-export default Court1;
+export default Court2;

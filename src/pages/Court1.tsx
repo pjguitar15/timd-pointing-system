@@ -8,7 +8,7 @@ const Court1 = () => {
   const { court1Info } = useCourtContext();
   return (
     <main className='h-screen bg-black flex flex-col'>
-      <Header matchDetails='Male Division | 68-70kg' />
+      <Header />
       <div className='lg:flex justify-between'>
         <CountryAndName
           name={court1Info.player1.name}

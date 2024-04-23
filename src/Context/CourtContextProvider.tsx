@@ -3,13 +3,18 @@ import React, { useState } from "react";
 import { CourtContext } from "./CourtContext";
 
 export type CourtContextType = {
-  court1Info: { player1: PlayerType; player2: PlayerType };
+  court1Info: {
+    matchDetails: string;
+    player1: PlayerType;
+    player2: PlayerType;
+  };
   updatePlayer1Name: (name: string) => void;
   updatePlayer2Name: (name: string) => void;
   updatePlayer1Country: (name: string) => void;
   updatePlayer2Country: (name: string) => void;
   updatePlayer1Point: (action: "increment" | "decrement") => void;
   updatePlayer2Point: (action: "increment" | "decrement") => void;
+  updateMatchDetails: (matchDetails: string) => void;
 };
 
 type PlayerType = {
@@ -19,6 +24,7 @@ type PlayerType = {
 };
 
 const court1InfoInitial = {
+  matchDetails: "Enter match details",
   player1: { name: "John Doe", country: "Philippines", point: 0 },
   player2: { name: "John Doe", country: "Thailand", point: 0 },
 };
@@ -27,6 +33,13 @@ const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [court1Info, setCourt1Info] = useState(court1InfoInitial);
+
+  const updateMatchDetails = (matchDetails: string) => {
+    setCourt1Info((prevCourt1Info) => ({
+      ...prevCourt1Info,
+      matchDetails,
+    }));
+  };
 
   const updatePlayer1Name = (name: string) => {
     setCourt1Info((prevCourt1Info) => ({
@@ -102,6 +115,7 @@ const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
     updatePlayer2Country,
     updatePlayer1Point,
     updatePlayer2Point,
+    updateMatchDetails,
   };
 
   return (
