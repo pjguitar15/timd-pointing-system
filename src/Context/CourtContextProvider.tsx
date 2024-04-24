@@ -1,9 +1,8 @@
-// MyProvider.tsx
 import React, { useState } from "react";
 import { CourtContext } from "./CourtContext";
 
 export type CourtContextType = {
-  court1Info: {
+  courtInfo: {
     matchDetails: string;
     matchNumber: string;
     player1: PlayerType;
@@ -25,7 +24,7 @@ type PlayerType = {
   point: number;
 };
 
-const court1InfoInitial = {
+const courtInfoInitial = {
   matchDetails: "Enter match details",
   matchNumber: "10",
   player1: { name: "Enter name", country: "Philippines", point: 0 },
@@ -35,90 +34,90 @@ const court1InfoInitial = {
 const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [court1Info, setCourt1Info] = useState(court1InfoInitial);
+  const [courtInfo, setCourtInfo] = useState(courtInfoInitial);
 
   const updateMatchDetails = (matchDetails: string) => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       matchDetails,
     }));
   };
 
   const updateMatchNumber = (matchNumber: string) => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       matchNumber,
     }));
   };
 
   const updatePlayer1Name = (name: string) => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       player1: {
-        ...prevCourt1Info.player1,
+        ...prevCourtInfo.player1,
         name,
       },
     }));
   };
 
   const updatePlayer2Name = (name: string) => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       player2: {
-        ...prevCourt1Info.player2,
+        ...prevCourtInfo.player2,
         name,
       },
     }));
   };
 
   const updatePlayer1Country = (country: string) => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       player1: {
-        ...prevCourt1Info.player1,
+        ...prevCourtInfo.player1,
         country,
       },
     }));
   };
 
   const updatePlayer2Country = (country: string) => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       player2: {
-        ...prevCourt1Info.player2,
+        ...prevCourtInfo.player2,
         country,
       },
     }));
   };
 
   const updatePlayer1Point = (action: "increment" | "decrement") => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       player1: {
-        ...prevCourt1Info.player1,
+        ...prevCourtInfo.player1,
         point:
           action === "increment"
-            ? prevCourt1Info.player1.point + 1
-            : prevCourt1Info.player1.point - 1,
+            ? prevCourtInfo.player1.point + 1
+            : prevCourtInfo.player1.point - 1,
       },
     }));
   };
 
   const updatePlayer2Point = (action: "increment" | "decrement") => {
-    setCourt1Info((prevCourt1Info) => ({
-      ...prevCourt1Info,
+    setCourtInfo((prevCourtInfo) => ({
+      ...prevCourtInfo,
       player2: {
-        ...prevCourt1Info.player2,
+        ...prevCourtInfo.player2,
         point:
           action === "increment"
-            ? prevCourt1Info.player2.point + 1
-            : prevCourt1Info.player2.point - 1,
+            ? prevCourtInfo.player2.point + 1
+            : prevCourtInfo.player2.point - 1,
       },
     }));
   };
 
   const contextValue: CourtContextType = {
-    court1Info,
+    courtInfo,
     updatePlayer1Name,
     updatePlayer2Name,
     updatePlayer1Country,

@@ -4,21 +4,21 @@ import CountryAndName from "../components/CountryAndName";
 import Header from "../components/Header";
 import PlayerPoint from "../components/PlayerPoint";
 
-const Court1 = () => {
-  const { court1Info } = useCourtContext();
+const Court = () => {
+  const { courtInfo } = useCourtContext();
   return (
     <main className='h-screen bg-black flex flex-col'>
       <Header />
       <div className='lg:flex justify-between'>
         <CountryAndName
-          name={court1Info.player1.name}
+          name={courtInfo.player1.name}
           color='red'
-          country={court1Info.player1.country}
+          country={courtInfo.player1.country}
         />
         <CountryAndName
-          name={court1Info.player2.name}
+          name={courtInfo.player2.name}
           color='blue'
-          country={court1Info.player2.country}
+          country={courtInfo.player2.country}
         />
       </div>
       <div className='md:flex justify-center h-full'>
@@ -41,4 +41,4 @@ const Court1 = () => {
   );
 };
 
-export default Court1;
+export default Court;

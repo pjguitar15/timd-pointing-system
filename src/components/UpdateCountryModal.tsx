@@ -11,7 +11,7 @@ const UpdateCountryModal = ({
   toggle: () => void;
   player: "1" | "2";
 }) => {
-  const { court1Info, updatePlayer1Country, updatePlayer2Country } =
+  const { courtInfo, updatePlayer1Country, updatePlayer2Country } =
     useCourtContext();
   return (
     <>
@@ -30,8 +30,8 @@ const UpdateCountryModal = ({
             <select
               value={
                 player === "1"
-                  ? court1Info.player1.country
-                  : court1Info.player2.country
+                  ? courtInfo.player1.country
+                  : courtInfo.player2.country
               }
               onChange={(e) => {
                 player === "1"

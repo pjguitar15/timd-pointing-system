@@ -14,11 +14,11 @@ const CountryAndNameEdit = ({
   playerNum: "1" | "2";
   color: "blue" | "red";
 }) => {
-  const { court1Info, updatePlayer1Name, updatePlayer2Name } =
+  const { courtInfo, updatePlayer1Name, updatePlayer2Name } =
     useCourtContext();
   const [open, setOpen] = useState(false);
   const country =
-    playerNum === "1" ? court1Info.player1.country : court1Info.player2.country;
+    playerNum === "1" ? courtInfo.player1.country : courtInfo.player2.country;
   const countryLowered = country.toLowerCase();
 
   const toggle = () => {
@@ -53,7 +53,7 @@ const CountryAndNameEdit = ({
       />
       <input
         value={
-          playerNum === "1" ? court1Info.player1.name : court1Info.player2.name
+          playerNum === "1" ? courtInfo.player1.name : courtInfo.player2.name
         }
         onChange={(e) =>
           playerNum === "1"

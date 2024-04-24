@@ -3,7 +3,7 @@ import CountryAndNameEdit from "../components/CountryAndNameEdit";
 import Header from "../components/Header";
 import PlayerPointEdit from "../components/PlayerPointEdit";
 
-const Court1Edit = () => {
+const CourtEdit = () => {
   return (
     <main className='h-screen bg-black flex flex-col'>
       <Header />
@@ -37,4 +37,4 @@ const Court1Edit = () => {
   );
 };
 
-export default Court1Edit;
+export default CourtEdit;

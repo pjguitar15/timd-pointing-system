@@ -14,20 +14,14 @@ const CourtSelect = () => {
           />
         </Link>
         <div className='text-center'>
-          <h2 className='text-2xl text-white'>Select a Court</h2>
+          <h2 className='text-2xl text-white'>Create a game link</h2>
         </div>
         <div className='flex gap-3'>
           <Link
-            to='/court-1'
+            to='/court'
             className='px-5 py-1 bg-yellow-500 text-slate-950 text-lg font-semibold'
           >
-            Court 1
-          </Link>
-          <Link
-            to='/court-2'
-            className='px-5 py-1 bg-yellow-500 text-slate-950 text-lg font-semibold'
-          >
-            Court 2
+            Generate Game Link
           </Link>
         </div>
       </div>

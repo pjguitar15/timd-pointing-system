@@ -7,7 +7,7 @@ const PlayerPoint = ({
   color: string;
   playerNum: "1" | "2";
 }) => {
-  const { court1Info } = useCourtContext();
+  const { courtInfo } = useCourtContext();
   return (
     <div
       className={`${
@@ -16,8 +16,8 @@ const PlayerPoint = ({
     >
       <h1 className='text-[10rem] sm:text-[7rem] md:text-[12rem] lg:text-[16rem] xl:text-[18rem] text-white font-semibold'>
         {playerNum === "1"
-          ? court1Info.player1.point
-          : court1Info.player2.point}
+          ? courtInfo.player1.point
+          : courtInfo.player2.point}
       </h1>
     </div>
   );
