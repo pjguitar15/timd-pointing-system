@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import TIMDLogo from "../assets/TIMD.png";
 
-const CourtSelect = () => {
+const GameSelect = () => {
   return (
     <main className='bg-slate-950 h-screen'>
       <div className='absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]' />
@@ -18,7 +18,7 @@ const CourtSelect = () => {
         </div>
         <div className='flex gap-3'>
           <Link
-            to='/court'
+            to='/game'
             className='px-5 py-1 bg-yellow-500 text-slate-950 text-lg font-semibold'
           >
             Generate Game Link
@@ -29,4 +29,4 @@ const CourtSelect = () => {
   );
 };
 
-export default CourtSelect;
+export default GameSelect;

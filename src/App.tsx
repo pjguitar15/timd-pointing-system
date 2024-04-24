@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Court from "./pages/Court";
+import Game from "./pages/Game";
 import Welcome from "./pages/Welcome";
-import CourtSelect from "./pages/CourtSelect";
-import CourtEdit from "./pages/CourtEdit";
+import GameSelect from "./pages/GameSelect";
+import GameEdit from "./pages/GameEdit";
 import GameProvider from "./Context/GameContextProvider";
 
 export default function App() {
@@ -15,16 +15,16 @@ export default function App() {
             element={<Welcome />}
           />
           <Route
-            path='/court-select'
-            element={<CourtSelect />}
+            path='/game-select'
+            element={<GameSelect />}
           />
           <Route
-            path='/court'
-            element={<Court />}
+            path='/game'
+            element={<Game />}
           />
           <Route
-            path='/court/edit'
-            element={<CourtEdit />}
+            path='/game/edit'
+            element={<GameEdit />}
           />
         </Routes>
       </GameProvider>

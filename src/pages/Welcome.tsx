@@ -18,7 +18,7 @@ const Welcome = () => {
           <h6 className='text-xl text-slate-400'>Web App build by Philcob</h6>
         </div>
         <Link
-          to='/court-select'
+          to='/game-select'
           className='px-7 py-1 bg-yellow-500 text-slate-950 text-lg font-semibold'
         >
           Start

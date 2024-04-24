@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { GameContext } from "./GameContext";
 
 export type GameContextType = {
-  courtInfo: {
+  gameInfo: {
     matchDetails: string;
     matchNumber: string;
     player1: PlayerType;
@@ -24,100 +24,100 @@ type PlayerType = {
   point: number;
 };
 
-const courtInfoInitial = {
+const gameInfoInitial = {
   matchDetails: "Enter match details",
   matchNumber: "10",
   player1: { name: "Enter name", country: "Philippines", point: 0 },
   player2: { name: "Enter name", country: "Thailand", point: 0 },
 };
 
-const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
+const GameProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [courtInfo, setCourtInfo] = useState(courtInfoInitial);
+  const [gameInfo, setGameInfo] = useState(gameInfoInitial);
 
   const updateMatchDetails = (matchDetails: string) => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       matchDetails,
     }));
   };
 
   const updateMatchNumber = (matchNumber: string) => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       matchNumber,
     }));
   };
 
   const updatePlayer1Name = (name: string) => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       player1: {
-        ...prevCourtInfo.player1,
+        ...prevGameInfo.player1,
         name,
       },
     }));
   };
 
   const updatePlayer2Name = (name: string) => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       player2: {
-        ...prevCourtInfo.player2,
+        ...prevGameInfo.player2,
         name,
       },
     }));
   };
 
   const updatePlayer1Country = (country: string) => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       player1: {
-        ...prevCourtInfo.player1,
+        ...prevGameInfo.player1,
         country,
       },
     }));
   };
 
   const updatePlayer2Country = (country: string) => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       player2: {
-        ...prevCourtInfo.player2,
+        ...prevGameInfo.player2,
         country,
       },
     }));
   };
 
   const updatePlayer1Point = (action: "increment" | "decrement") => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       player1: {
-        ...prevCourtInfo.player1,
+        ...prevGameInfo.player1,
         point:
           action === "increment"
-            ? prevCourtInfo.player1.point + 1
-            : prevCourtInfo.player1.point - 1,
+            ? prevGameInfo.player1.point + 1
+            : prevGameInfo.player1.point - 1,
       },
     }));
   };
 
   const updatePlayer2Point = (action: "increment" | "decrement") => {
-    setCourtInfo((prevCourtInfo) => ({
-      ...prevCourtInfo,
+    setGameInfo((prevGameInfo) => ({
+      ...prevGameInfo,
       player2: {
-        ...prevCourtInfo.player2,
+        ...prevGameInfo.player2,
         point:
           action === "increment"
-            ? prevCourtInfo.player2.point + 1
-            : prevCourtInfo.player2.point - 1,
+            ? prevGameInfo.player2.point + 1
+            : prevGameInfo.player2.point - 1,
       },
     }));
   };
 
   const contextValue: GameContextType = {
-    courtInfo,
+    gameInfo,
     updatePlayer1Name,
     updatePlayer2Name,
     updatePlayer1Country,
@@ -133,4 +133,4 @@ const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export default CourtProvider;
+export default GameProvider;

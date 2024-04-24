@@ -11,8 +11,7 @@ const PlayerPointEdit = ({
   color: string;
   playerNum: string;
 }) => {
-  const { courtInfo, updatePlayer1Point, updatePlayer2Point } =
-    useGameContext();
+  const { gameInfo, updatePlayer1Point, updatePlayer2Point } = useGameContext();
   return (
     <div
       className={`${
@@ -20,7 +19,7 @@ const PlayerPointEdit = ({
       } w-full flex flex-col justify-center items-center md:py-12 lg:py-0`}
     >
       <h1 className='text-[10rem] sm:text-[7rem] md:text-[12rem] lg:text-[16rem] xl:text-[18rem] text-white font-semibold'>
-        {playerNum === "1" ? courtInfo.player1.point : courtInfo.player2.point}
+        {playerNum === "1" ? gameInfo.player1.point : gameInfo.player2.point}
       </h1>
       <div className='flex'>
         <IoMdArrowDropleftCircle

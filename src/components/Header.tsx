@@ -7,15 +7,15 @@ import { BsArrowLeftCircle } from "react-icons/bs";
 import { useGameContext } from "../Context/GameContext";
 const Header = () => {
   const location = useLocation();
-  const isEditMode = location.pathname.slice(9) === "edit";
-  const { courtInfo, updateMatchDetails } = useGameContext();
+  const isEditMode = location.pathname.slice(6) === "edit";
+  const { gameInfo, updateMatchDetails } = useGameContext();
   return (
     <header className='bg-black w-full'>
       <main className='flex justify-center md:justify-between py-2 px-4 md:px-20 lg:px-24 items-center'>
         <div className='hidden md:flex gap-4 items-center'>
           <Link
             className='text-white'
-            to='/court-select'
+            to='/game-select'
           >
             <BsArrowLeftCircle className='text-2xl' />
           </Link>
@@ -37,19 +37,19 @@ const Header = () => {
           {isEditMode ? (
             <input
               className='text-white text-2xl font-semibold bg-transparent w-full text-center outline-none'
-              value={courtInfo.matchDetails}
+              value={gameInfo.matchDetails}
               onChange={(e) => updateMatchDetails(e.target.value)}
               type='text'
             />
           ) : (
             <h2 className='text-white md:text-2xl font-medium'>
-              {courtInfo.matchDetails}
+              {gameInfo.matchDetails}
             </h2>
           )}
 
           {!isEditMode ? (
             <Link
-              to='/court/edit'
+              to='/game/edit'
               className='text-white border border-white px-3 py-1 rounded-md flex items-center gap-2'
             >
               <MdModeEdit />
@@ -57,7 +57,7 @@ const Header = () => {
             </Link>
           ) : (
             <Link
-              to='/court-1/'
+              to='/game/'
               className='text-white underline w-60'
             >
               Back to Display Mode
