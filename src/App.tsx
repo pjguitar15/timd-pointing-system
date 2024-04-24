@@ -4,6 +4,8 @@ import Welcome from "./pages/Welcome";
 import GameSelect from "./pages/GameSelect";
 import GameEdit from "./pages/GameEdit";
 import GameProvider from "./Context/GameContextProvider";
+import AllGames from "./pages/AllGames";
+import GameCreate from "./pages/GameCreate";
 
 export default function App() {
   return (
@@ -17,6 +19,14 @@ export default function App() {
           <Route
             path='/game-select'
             element={<GameSelect />}
+          />
+          <Route
+            path='/game-create'
+            element={<GameCreate />}
+          />
+          <Route
+            path='/all-games'
+            element={<AllGames />}
           />
           <Route
             path='/game'

@@ -18,10 +18,16 @@ const GameSelect = () => {
         </div>
         <div className='flex gap-3'>
           <Link
-            to='/game'
-            className='px-5 py-1 bg-yellow-500 text-slate-950 text-lg font-semibold'
+            to='/game-create'
+            className='px-5 py-1 bg-yellow-500 text-slate-950 text-md font-semibold rounded-sm'
           >
-            Generate Game Link
+            Create a game
+          </Link>
+          <Link
+            to='/all-games'
+            className='px-5 py-1 border border-yellow-500 hover:bg-yellow-500 text-yellow-500 hover:text-slate-950 text-md font-semibold rounded-sm'
+          >
+            See all games
           </Link>
         </div>
       </div>

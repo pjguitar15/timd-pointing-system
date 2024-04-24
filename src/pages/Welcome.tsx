@@ -15,7 +15,16 @@ const Welcome = () => {
           <h2 className='text-3xl text-white'>
             Welcome to TIMD Pointing System
           </h2>
-          <h6 className='text-xl text-slate-400'>Web App build by Philcob</h6>
+          <div className='text-lg text-slate-500 flex justify-center items-center gap-1'>
+            <p className='me-0'>Web App built by</p>
+            <a
+              className='ms-0 underline italic'
+              target='_blank'
+              href='https://philcodes-portfolio.vercel.app/'
+            >
+              Philcob Suzuki Josol
+            </a>
+          </div>
         </div>
         <Link
           to='/game-select'
