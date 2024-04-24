@@ -5,7 +5,7 @@ import noFlag from "../assets/no-flag.png";
 import thFlag from "../assets/thai.webp";
 import { useState } from "react";
 import UpdateCountryModal from "./UpdateCountryModal";
-import { useCourtContext } from "../Context/CourtContext";
+import { useGameContext } from "../Context/GameContext";
 
 const CountryAndNameEdit = ({
   playerNum,
@@ -14,8 +14,7 @@ const CountryAndNameEdit = ({
   playerNum: "1" | "2";
   color: "blue" | "red";
 }) => {
-  const { courtInfo, updatePlayer1Name, updatePlayer2Name } =
-    useCourtContext();
+  const { courtInfo, updatePlayer1Name, updatePlayer2Name } = useGameContext();
   const [open, setOpen] = useState(false);
   const country =
     playerNum === "1" ? courtInfo.player1.country : courtInfo.player2.country;

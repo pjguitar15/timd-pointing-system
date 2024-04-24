@@ -3,12 +3,12 @@ import Court from "./pages/Court";
 import Welcome from "./pages/Welcome";
 import CourtSelect from "./pages/CourtSelect";
 import CourtEdit from "./pages/CourtEdit";
-import CourtProvider from "./Context/CourtContextProvider";
+import GameProvider from "./Context/GameContextProvider";
 
 export default function App() {
   return (
     <Router>
-      <CourtProvider>
+      <GameProvider>
         <Routes>
           <Route
             path='/'
@@ -27,7 +27,7 @@ export default function App() {
             element={<CourtEdit />}
           />
         </Routes>
-      </CourtProvider>
+      </GameProvider>
     </Router>
   );
 }

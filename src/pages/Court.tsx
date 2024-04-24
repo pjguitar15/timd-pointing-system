@@ -1,11 +1,11 @@
-import { useCourtContext } from "../Context/CourtContext";
+import { useGameContext } from "../Context/GameContext";
 import CenterInfo from "../components/CenterInfo";
 import CountryAndName from "../components/CountryAndName";
 import Header from "../components/Header";
 import PlayerPoint from "../components/PlayerPoint";
 
 const Court = () => {
-  const { courtInfo } = useCourtContext();
+  const { courtInfo } = useGameContext();
   return (
     <main className='h-screen bg-black flex flex-col'>
       <Header />

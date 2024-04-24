@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
-import { useCourtContext } from "../Context/CourtContext";
+import { useGameContext } from "../Context/GameContext";
 
 const CenterInfo = () => {
-  const { courtInfo, updateMatchNumber } = useCourtContext();
+  const { courtInfo, updateMatchNumber } = useGameContext();
   const location = useLocation();
   const isEditMode = location.pathname.slice(9) === "edit";
   return (

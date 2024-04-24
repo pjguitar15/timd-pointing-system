@@ -4,11 +4,11 @@ import legato from "../assets/legato.png";
 import { Link, useLocation } from "react-router-dom";
 import { MdModeEdit } from "react-icons/md";
 import { BsArrowLeftCircle } from "react-icons/bs";
-import { useCourtContext } from "../Context/CourtContext";
+import { useGameContext } from "../Context/GameContext";
 const Header = () => {
   const location = useLocation();
   const isEditMode = location.pathname.slice(9) === "edit";
-  const { courtInfo, updateMatchDetails } = useCourtContext();
+  const { courtInfo, updateMatchDetails } = useGameContext();
   return (
     <header className='bg-black w-full'>
       <main className='flex justify-center md:justify-between py-2 px-4 md:px-20 lg:px-24 items-center'>

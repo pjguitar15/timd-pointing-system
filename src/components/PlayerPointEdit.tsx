@@ -2,7 +2,7 @@ import {
   IoMdArrowDropleftCircle,
   IoMdArrowDroprightCircle,
 } from "react-icons/io";
-import { useCourtContext } from "../Context/CourtContext";
+import { useGameContext } from "../Context/GameContext";
 
 const PlayerPointEdit = ({
   color,
@@ -12,7 +12,7 @@ const PlayerPointEdit = ({
   playerNum: string;
 }) => {
   const { courtInfo, updatePlayer1Point, updatePlayer2Point } =
-    useCourtContext();
+    useGameContext();
   return (
     <div
       className={`${

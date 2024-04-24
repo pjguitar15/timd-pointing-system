@@ -1,6 +1,6 @@
 import { IoClose } from "react-icons/io5";
 import { COUNTRY_LIST } from "../helpers/CountriesList";
-import { useCourtContext } from "../Context/CourtContext";
+import { useGameContext } from "../Context/GameContext";
 
 const UpdateCountryModal = ({
   open,
@@ -12,7 +12,7 @@ const UpdateCountryModal = ({
   player: "1" | "2";
 }) => {
   const { courtInfo, updatePlayer1Country, updatePlayer2Country } =
-    useCourtContext();
+    useGameContext();
   return (
     <>
       {open && (

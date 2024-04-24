@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { CourtContext } from "./CourtContext";
+import { GameContext } from "./GameContext";
 
-export type CourtContextType = {
+export type GameContextType = {
   courtInfo: {
     matchDetails: string;
     matchNumber: string;
@@ -116,7 +116,7 @@ const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   };
 
-  const contextValue: CourtContextType = {
+  const contextValue: GameContextType = {
     courtInfo,
     updatePlayer1Name,
     updatePlayer2Name,
@@ -129,9 +129,7 @@ const CourtProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <CourtContext.Provider value={contextValue}>
-      {children}
-    </CourtContext.Provider>
+    <GameContext.Provider value={contextValue}>{children}</GameContext.Provider>
   );
 };
 
