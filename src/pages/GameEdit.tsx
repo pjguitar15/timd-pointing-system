@@ -1,4 +1,4 @@
-import CenterInfo from "../components/CenterInfo";
+// import CenterInfo from "../components/CenterInfo";
 import CountryAndNameEdit from "../components/CountryAndNameEdit";
 import Header from "../components/Header";
 import PlayerPointEdit from "../components/PlayerPointEdit";
