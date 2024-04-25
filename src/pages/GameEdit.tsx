@@ -22,16 +22,12 @@ const GameEdit = () => {
           playerNum='1'
           color='red'
         />
-        <div className='hidden md:flex'>
-          <CenterInfo />
-        </div>
+        <div className='hidden md:flex'>{/* <CenterInfo /> */}</div>
         <PlayerPointEdit
           playerNum='2'
           color='blue'
         />
-        <div className='flex md:hidden'>
-          <CenterInfo />
-        </div>
+        <div className='flex md:hidden'>{/* <CenterInfo /> */}</div>
       </div>
     </main>
   );
