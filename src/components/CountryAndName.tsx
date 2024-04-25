@@ -9,11 +9,11 @@ const CountryAndName = ({
   color,
   country,
 }: {
-  name: string;
+  name: string | undefined;
   color: "blue" | "red";
-  country: string;
+  country: string | undefined;
 }) => {
-  const countryLowered = country.toLowerCase();
+  const countryLowered = country?.toLowerCase();
   return (
     <div
       className={`${

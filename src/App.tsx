@@ -29,7 +29,7 @@ export default function App() {
             element={<AllGames />}
           />
           <Route
-            path='/game'
+            path='/game/:id'
             element={<Game />}
           />
           <Route

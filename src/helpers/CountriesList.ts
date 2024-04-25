@@ -1,1 +1,7 @@
-export const COUNTRY_LIST = ["Philippines", "Thailand", "Korea", "Japan"];
+export const COUNTRY_LIST = [
+  "Philippines",
+  "Thailand",
+  "Korea",
+  "Japan",
+  "No Country",
+];

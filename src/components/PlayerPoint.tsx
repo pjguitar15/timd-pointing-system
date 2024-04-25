@@ -1,13 +1,10 @@
-import { useGameContext } from "../Context/GameContext";
-
 const PlayerPoint = ({
   color,
-  playerNum,
+  points,
 }: {
   color: string;
-  playerNum: "1" | "2";
+  points: number | undefined;
 }) => {
-  const { gameInfo } = useGameContext();
   return (
     <div
       className={`${
@@ -15,7 +12,7 @@ const PlayerPoint = ({
       } w-full flex justify-center items-center md:py-12 lg:py-0`}
     >
       <h1 className='text-[10rem] sm:text-[7rem] md:text-[12rem] lg:text-[16rem] xl:text-[18rem] text-white font-semibold'>
-        {playerNum === "1" ? gameInfo.player1.point : gameInfo.player2.point}
+        {points}
       </h1>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useGameContext } from "../Context/GameContext";
 
-const CenterInfo = () => {
+const CenterInfo = ({ matchNumber }: { matchNumber: number | undefined }) => {
   const { gameInfo, updateMatchNumber } = useGameContext();
   const location = useLocation();
   const isEditMode = location.pathname.slice(6) === "edit";
@@ -18,7 +18,7 @@ const CenterInfo = () => {
           />
         ) : (
           <h2 className='text-white text-7xl lg:text-9xl font-semibold'>
-            {gameInfo.matchNumber}
+            {matchNumber}
           </h2>
         )}
       </div>
