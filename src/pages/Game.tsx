@@ -3,31 +3,24 @@ import CenterInfo from "../components/CenterInfo";
 import CountryAndName from "../components/CountryAndName";
 import Header from "../components/Header";
 import PlayerPoint from "../components/PlayerPoint";
-import { get, ref } from "firebase/database";
-import { db } from "../firebase/firebaseConfig";
 import { useParams } from "react-router-dom";
-import { GameDataType } from "./AllGames";
+import { db } from "../firebase/firebaseConfig";
+import { doc, onSnapshot } from "firebase/firestore";
+import { DocumentData } from "@firebase/firestore-types";
 
 const Game = () => {
-  const [gameItem, setGameItem] = useState<GameDataType | null>(null);
+  const [gameItem, setGameItem] = useState<DocumentData | null | undefined>(
+    null
+  );
   const params = useParams();
   useEffect(() => {
-    const getData = async () => {
-      const dbRef = ref(db, "game");
-      const snapshot = await get(dbRef);
-      if (snapshot.exists()) {
-        const data = Object.values(snapshot.val());
-        const findGameItem = (data as GameDataType[]).filter(
-          (item) => item.gameId === params.id
-        );
-        setGameItem(findGameItem[0]);
-        console.log(data);
-      } else {
-        console.log("Error!");
-      }
-    };
-    getData();
-  }, []);
+    if (params.id) {
+      onSnapshot(doc(db, "games", params.id), (doc) => {
+        console.log("Current data: ", doc.data());
+        if (doc.data()) setGameItem(doc.data());
+      });
+    }
+  }, [params.id]);
 
   useEffect(() => {
     console.log(params.id);

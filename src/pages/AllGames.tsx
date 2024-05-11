@@ -1,15 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import TIMDLogo from "../assets/TIMD.png";
 import { useEffect, useState } from "react";
-import { db } from "../firebase/firebaseConfig";
-import { get, ref } from "firebase/database";
 import phflag from "../assets/ph-flag.webp";
 import thaiFlag from "../assets/thai.webp";
 import koreanFlag from "../assets/kr-flag.jpg";
 import jpFlag from "../assets/japan.png";
 import unknownFlag from "../assets/no-flag.png";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
 export type GameDataType = {
+  id: string;
   player1Country: string;
   player2Country: string;
   matchDetails: string;
@@ -18,28 +19,24 @@ export type GameDataType = {
   player2Name: string;
   player1Points: number;
   player2Points: number;
-  gameId: string;
 };
 
 const AllGames = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<GameDataType[]>([]);
   const navigate = useNavigate();
   useEffect(() => {
-    const getData = async () => {
-      const dbRef = ref(db, "game");
-      const snapshot = await get(dbRef);
-      if (snapshot.exists()) {
-        setData(Object.values(snapshot.val()));
-      } else {
-        console.log("Error!");
-      }
-    };
-    getData();
-  }, []);
+    const gameRef = collection(db, "games");
+    const unsubscribe = onSnapshot(gameRef, (querySnapshot) => {
+      const updatedGames: GameDataType[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as GameDataType[];
+      setData(updatedGames);
+      console.log(updatedGames);
+    });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+    return () => unsubscribe();
+  }, []);
 
   return (
     <main className='bg-slate-950 h-screen'>
@@ -62,9 +59,9 @@ const AllGames = () => {
           </Link>
         </div>
         <div className='flex flex-col gap-4'>
-          {data.map((item: GameDataType, index) => (
+          {data.map((item: GameDataType, index: number) => (
             <div
-              onClick={() => navigate(`/game/${item.gameId}`)}
+              onClick={() => navigate(`/game/${item.id}`)}
               className='bg-slate-400 hover:bg-white cursor-pointer px-8 py-2 flex justify-between gap-5 font-semibold rounded-sm text-lg text-slate-950 hover:text-blue-900'
               key={index}
             >

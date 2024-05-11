@@ -1,11 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TIMDLogo from "../assets/TIMD.png";
 import { COUNTRY_LIST } from "../helpers/CountriesList";
 import { FormEvent, useState } from "react";
-import { push, ref, set } from "firebase/database";
+import { addDoc, collection } from "firebase/firestore";
+import { serverTimestamp } from "firebase/database";
 import { db } from "../firebase/firebaseConfig";
-import firebase from "firebase/compat/app";
-import { v4 as uuidv4 } from 'uuid';
+
+type GameCreateType = {
+  matchDetails: string;
+  matchNumber: number;
+  player1Country: string;
+  player1Name: string;
+  player1Points: number;
+  player2Country: string;
+  player2Name: string;
+  player2Points: number;
+};
 
 const GameCreate = () => {
   const [player1Name, setPlayer1Name] = useState("");
@@ -14,6 +24,7 @@ const GameCreate = () => {
   const [player2Country, setPlayer2Country] = useState(COUNTRY_LIST[0]);
   const [matchDetails, setMatchDetails] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
   const handleCreateGame = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!player1Name || !player2Name || !player1Country || !matchDetails) {
@@ -22,39 +33,45 @@ const GameCreate = () => {
     }
 
     try {
-      const writeUserData = () => {
-        if (!firebase.apps.length) {
-          const newDocRef = push(ref(db, "game"));
-          set(newDocRef, {
-            player1Name,
-            player2Name,
-            player1Country,
-            player2Country,
-            matchDetails,
-            matchNumber: 1,
-            player1Points: 0,
-            player2Points: 0,
-            gameId: uuidv4()
-          })
-            .then(() => {
-              console.log("Data saved successfully");
-            })
-            .catch((err) => {
-              console.log(err.message);
-            });
-        }
+      const writeUserData = async () => {
+        const payload = {
+          matchDetails,
+          matchNumber: 1,
+          player1Country,
+          player1Name,
+          player1Points: 0,
+          player2Country,
+          player2Name,
+          player2Points: 0,
+        };
+        const uploadPayload = (
+          collectionName: string,
+          payload: GameCreateType
+        ) => {
+          // Good practice to set it to a promise
+          return new Promise((resolve, reject) => {
+            const collectionRef = collection(db, collectionName);
+
+            addDoc(collectionRef, { ...payload, timestamp: serverTimestamp() })
+              .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+                navigate("/all-games");
+                resolve(docRef);
+              })
+              .catch((error) => {
+                console.error("Error adding document: ", error);
+                reject(error);
+              });
+          });
+        };
+
+        await uploadPayload("games", payload);
       };
       writeUserData();
     } catch (error) {
       console.log(error);
     }
 
-    console.log({
-      player1Name,
-      player2Name,
-      country: player1Country,
-      matchDetails,
-    });
     clearFields();
     setError("");
   };
