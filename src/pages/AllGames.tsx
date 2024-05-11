@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TIMDLogo from "../assets/TIMD.png";
 import { useEffect, useState } from "react";
 import phflag from "../assets/ph-flag.webp";
@@ -8,6 +8,8 @@ import jpFlag from "../assets/japan.png";
 import unknownFlag from "../assets/no-flag.png";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import GameActionModal from "../components/GameActionModal";
+import EnterPassModal from "../components/EnterPassModal";
 
 export type GameDataType = {
   id: string;
@@ -23,7 +25,9 @@ export type GameDataType = {
 
 const AllGames = () => {
   const [data, setData] = useState<GameDataType[]>([]);
-  const navigate = useNavigate();
+  const [gameActionModalOpen, setGameActionModalOpen] = useState(false);
+  const [enterPassModalOpen, setEnterPassModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState("");
   useEffect(() => {
     const gameRef = collection(db, "games");
     const unsubscribe = onSnapshot(gameRef, (querySnapshot) => {
@@ -38,10 +42,29 @@ const AllGames = () => {
     return () => unsubscribe();
   }, []);
 
+  const toggleGameActionModal = () => {
+    setGameActionModalOpen(!gameActionModalOpen);
+  };
+
+  const togglePasswordModal = () => {
+    setEnterPassModalOpen(!enterPassModalOpen);
+  };
+
   return (
     <main className='bg-slate-950 h-screen'>
+      <GameActionModal
+        open={gameActionModalOpen}
+        toggleModal={toggleGameActionModal}
+        openJuryModal={togglePasswordModal}
+        selectedId={selectedId}
+      />
+      <EnterPassModal
+        open={enterPassModalOpen}
+        toggleModal={togglePasswordModal}
+        selectedId={selectedId}
+      />
       <div className='absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]' />
-      <div className='flex flex-col items-center justify-center gap-6 h-full relative z-50'>
+      <div className='flex flex-col items-center justify-center gap-6 h-full relative z-40'>
         <Link to='/'>
           <img
             className='size-40'
@@ -61,9 +84,12 @@ const AllGames = () => {
         <div className='flex flex-col gap-4'>
           {data.map((item: GameDataType, index: number) => (
             <div
-              onClick={() => navigate(`/game/${item.id}`)}
               className='bg-slate-400 hover:bg-white cursor-pointer px-8 py-2 flex justify-between gap-5 font-semibold rounded-sm text-lg text-slate-950 hover:text-blue-900'
               key={index}
+              onClick={() => {
+                setSelectedId(item.id);
+                toggleGameActionModal();
+              }}
             >
               <div className='flex gap-2'>
                 <div className='flex gap-2'>

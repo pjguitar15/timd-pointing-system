@@ -33,7 +33,7 @@ export default function App() {
             element={<Game />}
           />
           <Route
-            path='/game/edit'
+            path='/game/edit/:id'
             element={<GameEdit />}
           />
         </Routes>

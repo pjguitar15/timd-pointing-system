@@ -15,6 +15,7 @@ type GameCreateType = {
   player2Country: string;
   player2Name: string;
   player2Points: number;
+  password: string;
 };
 
 const GameCreate = () => {
@@ -23,11 +24,18 @@ const GameCreate = () => {
   const [player1Country, setPlayer1Country] = useState(COUNTRY_LIST[0]);
   const [player2Country, setPlayer2Country] = useState(COUNTRY_LIST[0]);
   const [matchDetails, setMatchDetails] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const handleCreateGame = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!player1Name || !player2Name || !player1Country || !matchDetails) {
+    if (
+      !player1Name ||
+      !player2Name ||
+      !player1Country ||
+      !matchDetails ||
+      !password
+    ) {
       setError("Please complete the fields");
       return;
     }
@@ -43,6 +51,7 @@ const GameCreate = () => {
           player2Country,
           player2Name,
           player2Points: 0,
+          password,
         };
         const uploadPayload = (
           collectionName: string,
@@ -175,6 +184,18 @@ const GameCreate = () => {
               placeholder='Enter match details'
               className='px-2 py-2 rounded-sm w-full outline-none'
               type='text'
+            />
+          </div>
+          <div className='flex flex-col items-start'>
+            <span className='text-white text-xs font-medium mb-1'>
+              Password
+            </span>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder='Enter game password'
+              className='px-2 py-2 rounded-sm w-full outline-none'
+              type='password'
             />
           </div>
           {error && (
