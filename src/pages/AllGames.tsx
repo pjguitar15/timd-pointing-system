@@ -84,15 +84,15 @@ const AllGames = () => {
         <div className='flex flex-col gap-4'>
           {data.map((item: GameDataType, index: number) => (
             <div
-              className='bg-slate-400 hover:bg-white cursor-pointer px-8 py-2 flex justify-between gap-5 font-semibold rounded-sm text-lg text-slate-950 hover:text-blue-900'
+              className='md:bg-slate-400 bg-white hover:bg-white cursor-pointer px-8 py-5 md:py-2 flex flex-col md:flex-row justify-between gap-2 md:gap-5 font-semibold rounded-sm text-lg text-slate-950 hover:text-blue-900 w-screen sm:w-[550px] md:w-[800px] mx-auto'
               key={index}
               onClick={() => {
                 setSelectedId(item.id);
                 toggleGameActionModal();
               }}
             >
-              <div className='flex gap-2'>
-                <div className='flex gap-2'>
+              <div className='flex gap-10 md:gap-5 mx-auto md:w-7/12 justify-center'>
+                <div className='flex items-center md:items-start flex-col md:flex-row gap-2 mx-auto md:mx-0 text-md md:text-lg text-center leading-5 w-4/12'>
                   <img
                     className='w-9 h-7 rounded-full object-cover'
                     src={
@@ -111,7 +111,7 @@ const AllGames = () => {
                   {item.player1Name}
                 </div>
                 vs{" "}
-                <div className='flex gap-2'>
+                <div className='flex items-center md:items-start flex-col md:flex-row gap-2 mx-auto md:mx-0 text-md md:text-lg text-center leading-5 w-4/12'>
                   <img
                     className='w-9 h-7 rounded-full object-cover'
                     src={
@@ -130,13 +130,27 @@ const AllGames = () => {
                   {item.player2Name}
                 </div>
               </div>
-              <div>|</div>
-              <div>{item.matchDetails}</div>
-              <div>|</div>
-              <div>Match {item.matchNumber}</div>
-              <div>|</div>
-              <div>
-                {item.player1Points} / {item.player2Points}
+              <div className='w-5/12 flex justify-between'>
+                <div className='hidden md:block'>|</div>
+                <div className='hidden md:block'>{item.matchDetails}</div>
+                <div className='hidden md:block'>|</div>
+                <div className='hidden md:block'>Match {item.matchNumber}</div>
+                <div className='hidden md:block'>|</div>
+                <div className='hidden md:block'>
+                  {item.player1Points} / {item.player2Points}
+                </div>
+              </div>
+
+              <hr className='md:hidden' />
+              <div className='flex justify-around w-3/4 sm:w-2/4  mx-auto md:hidden text-sm'>
+                <div className='hidden md:block'>|</div>
+                <div className='bg-blue-600 text-white px-2 rounded-full'>
+                  {item.matchDetails}
+                </div>
+                <div>Match {item.matchNumber}</div>
+                <div className='bg-red-600 text-white px-2 rounded-full'>
+                  {item.player1Points} / {item.player2Points}
+                </div>
               </div>
             </div>
           ))}
