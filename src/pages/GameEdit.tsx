@@ -48,7 +48,7 @@ const GameEdit = () => {
           const currPlayer1Points = currentData.player1Points || 0;
           const currPlayer2Points = currentData.player2Points || 0;
 
-          if (color === "blue") {
+          if (color === "red") {
             // Increment player points by 1
             const updatedPlayer1Points = currPlayer1Points + 1;
             // Update the document with the new player1Points value
@@ -100,16 +100,16 @@ const GameEdit = () => {
           <span className='text-red-500'>red</span> square to add a point
         </h5>
         <div
-          onClick={() => addPoint("blue")}
-          className='p-20 bg-blue-600 text-white text-center cursor-pointer rounded-tl-lg rounded-tr-lg select-none'
+          onClick={() => addPoint("red")}
+          className='p-20 bg-red-600 text-white text-center cursor-pointer rounded-tl-lg rounded-tr-lg select-none'
         >
           <h2 className='text-8xl mb-2'>{gameItem?.player1Points}</h2>
           <h6 className='text-xl font-semibold'>{gameItem?.player1Name}</h6>
           <h6 className='text-white text-xs'>Player 1</h6>
         </div>
         <div
-          onClick={() => addPoint("red")}
-          className='p-20 bg-red-600 text-white text-center cursor-pointer rounded-bl-lg rounded-br-lg select-none'
+          onClick={() => addPoint("blue")}
+          className='p-20 bg-blue-600 text-white text-center cursor-pointer rounded-bl-lg rounded-br-lg select-none'
         >
           <h2 className='text-8xl mb-2'>{gameItem?.player2Points}</h2>
           <h6 className='text-xl font-semibold'>{gameItem?.player2Name}</h6>
