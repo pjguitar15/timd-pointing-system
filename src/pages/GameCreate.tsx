@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { serverTimestamp } from "firebase/database";
 import { db } from "../firebase/firebaseConfig";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 type GameCreateType = {
   matchDetails: string;
@@ -16,6 +17,7 @@ type GameCreateType = {
   player2Name: string;
   player2Points: number;
   password: string;
+  pin: string;
 };
 
 const GameCreate = () => {
@@ -25,6 +27,14 @@ const GameCreate = () => {
   const [player2Country, setPlayer2Country] = useState(COUNTRY_LIST[0]);
   const [matchDetails, setMatchDetails] = useState("");
   const [password, setPassword] = useState("");
+  const [pin, setPin] = useState({
+    pin1: "",
+    pin2: "",
+    pin3: "",
+    pin4: "",
+  });
+  const [showJuryCode, setShowJuryCode] = useState(false);
+  const [showPassCode, setShowPassCode] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const handleCreateGame = (e: FormEvent<HTMLFormElement>) => {
@@ -52,6 +62,7 @@ const GameCreate = () => {
           player2Name,
           player2Points: 0,
           password,
+          pin: pin.pin1 + pin.pin2 + pin.pin3 + pin.pin4,
         };
         const uploadPayload = (
           collectionName: string,
@@ -122,9 +133,7 @@ const GameCreate = () => {
             />
           </div>
           <div className='flex flex-col items-start'>
-            <span className='text-white text-xs font-medium mb-1'>
-              Player 1 Country
-            </span>
+            <span className='text-white text-xs font-medium mb-1'>Country</span>
             <select
               value={player1Country}
               className='px-2 py-2 rounded-sm w-full outline-none'
@@ -155,9 +164,7 @@ const GameCreate = () => {
           </div>
 
           <div className='flex flex-col items-start'>
-            <span className='text-white text-xs font-medium mb-1'>
-              Player 2 Country
-            </span>
+            <span className='text-white text-xs font-medium mb-1'>Country</span>
             <select
               value={player2Country}
               className='px-2 py-2 rounded-sm w-full outline-none'
@@ -188,20 +195,118 @@ const GameCreate = () => {
           </div>
           <div className='flex flex-col items-start'>
             <span className='text-white text-xs font-medium mb-1'>
-              Password
+              Admin Password
             </span>
-            <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder='Enter game password'
-              className='px-2 py-2 rounded-sm w-full outline-none'
-              type='password'
-            />
+
+            <div className='relative w-full'>
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder='Enter admin password'
+                className='px-2 py-2 rounded-sm w-full outline-none'
+                type={showPassCode ? "text" : "password"}
+              />
+              {password && (
+                <>
+                  {showPassCode ? (
+                    <FaRegEye
+                      onClick={() => setShowPassCode(!showPassCode)}
+                      className='absolute right-3 bottom-0 text-black text-xl mb-2 cursor-pointer'
+                    />
+                  ) : (
+                    <FaRegEyeSlash
+                      onClick={() => setShowPassCode(!showPassCode)}
+                      className='absolute right-3 bottom-0 text-black text-xl mb-2 cursor-pointer'
+                    />
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+          <div className='flex flex-col items-center my-3'>
+            <div className='flex gap-2 items-center mb-3'>
+              <span className='text-white text-xs font-medium'>
+                Set Jury Pin Code
+              </span>
+              {pin.pin1 && (
+                <>
+                  {showJuryCode ? (
+                    <FaRegEye
+                      onClick={() => setShowJuryCode(!showJuryCode)}
+                      className='text-white text-xl cursor-pointer'
+                    />
+                  ) : (
+                    <FaRegEyeSlash
+                      onClick={() => setShowJuryCode(!showJuryCode)}
+                      className='text-white text-xl cursor-pointer'
+                    />
+                  )}
+                </>
+              )}
+            </div>
+            <div className='flex gap-2 w-3/4 h-12 text-2xl'>
+              <input
+                value={pin.pin1}
+                onChange={(e) => {
+                  const inputDigit = e.target.value.slice(-1); // Get the last entered character
+                  if (inputDigit === "" || /^\d$/.test(inputDigit)) {
+                    // Check if the entered character is empty or a digit
+                    setPin((prev) => {
+                      return { ...prev, pin1: inputDigit }; // Update state with the single digit or empty string
+                    });
+                  }
+                }}
+                className='py-8 rounded-sm w-full outline-none text-center'
+                type={showJuryCode ? "text" : "password"}
+              />
+              <input
+                value={pin.pin2}
+                onChange={(e) => {
+                  const inputDigit = e.target.value.slice(-1); // Get the last entered character
+                  if (inputDigit === "" || /^\d$/.test(inputDigit)) {
+                    // Check if the entered character is empty or a digit
+                    setPin((prev) => {
+                      return { ...prev, pin2: inputDigit }; // Update state with the single digit or empty string
+                    });
+                  }
+                }}
+                className='py-8 rounded-sm w-full outline-none text-center'
+                type={showJuryCode ? "text" : "password"}
+              />
+              <input
+                value={pin.pin3}
+                onChange={(e) => {
+                  const inputDigit = e.target.value.slice(-1); // Get the last entered character
+                  if (inputDigit === "" || /^\d$/.test(inputDigit)) {
+                    // Check if the entered character is empty or a digit
+                    setPin((prev) => {
+                      return { ...prev, pin3: inputDigit }; // Update state with the single digit or empty string
+                    });
+                  }
+                }}
+                className='py-8 rounded-sm w-full outline-none text-center'
+                type={showJuryCode ? "text" : "password"}
+              />
+              <input
+                value={pin.pin4}
+                onChange={(e) => {
+                  const inputDigit = e.target.value.slice(-1); // Get the last entered character
+                  if (inputDigit === "" || /^\d$/.test(inputDigit)) {
+                    // Check if the entered character is empty or a digit
+                    setPin((prev) => {
+                      return { ...prev, pin4: inputDigit }; // Update state with the single digit or empty string
+                    });
+                  }
+                }}
+                className='py-8 rounded-sm w-full outline-none text-center'
+                type={showJuryCode ? "text" : "password"}
+              />
+            </div>
           </div>
           {error && (
             <p className='text-red-500 text-center py-0 my-0'>{error}</p>
           )}
-          <div className='flex gap-3 justify-center py-2'>
+          <div className='flex gap-3 justify-center py-2 mt-4'>
             <button
               type='submit'
               className='px-5 py-1 bg-yellow-500 text-slate-950 text-md font-semibold rounded-sm'
