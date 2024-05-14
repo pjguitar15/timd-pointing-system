@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Game from "./pages/Game";
 import Welcome from "./pages/Welcome";
 import GameSelect from "./pages/GameSelect";
-import GameEdit from "./pages/GameEdit";
+import GameEdit from "./pages/GameEdit/GameEdit";
 import GameProvider from "./Context/GameContextProvider";
 import AllGames from "./pages/AllGames";
 import GameCreate from "./pages/GameCreate";
