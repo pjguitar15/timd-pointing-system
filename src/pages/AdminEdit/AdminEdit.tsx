@@ -10,31 +10,27 @@ const GameEdit = () => {
   const [gameItem, setGameItem] = useState<DocumentData | null | undefined>(
     null
   );
+  const [matchNum, setMatchNum] = useState<number | undefined>(undefined);
   const params = useParams();
 
   useEffect(() => {
-    // Check if params.id exists before subscribing to the document
-    if (params.id) {
-      const gameDocRef = doc(db, "games", params.id);
-      const unsubscribe = onSnapshot(
-        gameDocRef,
-        { includeMetadataChanges: false },
-        (doc) => {
-          if (doc.exists()) {
-            console.log("Current data: ", doc.data());
-            setGameItem(doc.data());
-          } else {
-            console.log("Document does not exist");
-          }
-        }
-      );
+    if (!params.id) return;
 
-      // Return the cleanup function
-      return () => {
-        console.log("Cleaning up listener...");
-        unsubscribe(); // Unsubscribe from the snapshot listener
-      };
-    }
+    const gameDocRef = doc(db, "games", params.id);
+    const unsubscribe = onSnapshot(gameDocRef, (doc) => {
+      if (doc.exists()) {
+        console.log("Current data: ", doc.data());
+        setGameItem(doc.data());
+        setMatchNum(doc.data().matchNumber);
+      } else {
+        console.log("Document does not exist");
+      }
+    });
+
+    return () => {
+      console.log("Cleaning up listener...");
+      unsubscribe();
+    };
   }, [params.id]);
 
   const updatePoint = async (
@@ -42,97 +38,70 @@ const GameEdit = () => {
     operation: "add" | "subtract",
     num: number
   ) => {
-    if (params.id) {
-      const gameDocRef = doc(db, "games", params.id);
+    if (!params.id) return;
 
-      try {
-        // Get the current document data
-        const docSnapshot = await getDoc(gameDocRef);
-        if (docSnapshot.exists()) {
-          const currentData = docSnapshot.data();
-          const currPlayer1Points = currentData.player1Points || 0;
-          const currPlayer2Points = currentData.player2Points || 0;
+    const gameDocRef = doc(db, "games", params.id);
 
-          if (color === "red") {
-            if (operation === "add") {
-              // Increment player points by 1
-              const updatedPlayer1Points = currPlayer1Points + num;
-              // Update the document with the new player1Points value
-              await setDoc(
-                gameDocRef,
-                {
-                  player1Points: updatedPlayer1Points,
-                },
-                { merge: true } // Merge with existing document data
-              );
-
-              console.log("Document updated successfully!");
-            } else {
-              // Increment player points by 1
-              const updatedPlayer1Points = currPlayer1Points - num;
-              // Update the document with the new player1Points value
-              await setDoc(
-                gameDocRef,
-                {
-                  player1Points: updatedPlayer1Points,
-                },
-                { merge: true } // Merge with existing document data
-              );
-
-              console.log("Document updated successfully!");
-            }
-          } else {
-            if (operation === "add") {
-              // Increment player points by 1
-              const updatedPlayer2Points = currPlayer2Points + num;
-              // Update the document with the new player1Points value
-              await setDoc(
-                gameDocRef,
-                {
-                  player2Points: updatedPlayer2Points,
-                },
-                { merge: true } // Merge with existing document data
-              );
-
-              console.log("Document updated successfully!");
-            } else {
-              // Decrement player points by 1
-              const updatedPlayer2Points = currPlayer2Points - num;
-              // Update the document with the new player1Points value
-              await setDoc(
-                gameDocRef,
-                {
-                  player2Points: updatedPlayer2Points,
-                },
-                { merge: true } // Merge with existing document data
-              );
-
-              console.log("Document updated successfully!");
-            }
-          }
-        } else {
-          console.error("Document does not exist");
-        }
-      } catch (error) {
-        console.error("Error updating document: ", error);
+    try {
+      const docSnapshot = await getDoc(gameDocRef);
+      if (!docSnapshot.exists()) {
+        console.error("Document does not exist");
+        return;
       }
+
+      const currentData = docSnapshot.data();
+      const pointsField = color === "red" ? "player1Points" : "player2Points";
+      const currentPoints = currentData[pointsField] || 0;
+      const updatedPoints =
+        operation === "add" ? currentPoints + num : currentPoints - num;
+
+      await setDoc(
+        gameDocRef,
+        { [pointsField]: updatedPoints },
+        { merge: true }
+      );
+
+      console.log("Document updated successfully!");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+    }
+  };
+
+  const updateMatchNum = async (num: number) => {
+    if (!params.id) return;
+    const chatDocRef = doc(db, "games", params.id); // Reference the document directly by its ID
+
+    try {
+      await setDoc(
+        chatDocRef,
+        { matchNumber: num },
+        { merge: true } // Merge with existing document data
+      );
+      console.log("Document updated successfully!");
+    } catch (error) {
+      console.error("Error updating document: ", error);
     }
   };
 
   return (
     <main className='h-screen bg-black flex flex-col justify-center'>
       <h1 className='text-white text-center text-[6rem]'>00:00</h1>
-      <div className='flex mx-auto'>
+      <div className='flex mx-auto gap-2 items-center'>
         <h3 className='text-white text-xl'>Match</h3>
         <input
-          className='bg-transparent text-white mx-auto text-center text-xl border rounded outline-none w-12'
-          value={1}
+          className='bg-slate-200 mx-auto text-center ps-3 py-2 text-4xl border rounded outline-none w-12'
+          value={matchNum}
+          onChange={(e) => {
+            setMatchNum(e.target.value ? parseInt(e.target.value) : undefined);
+            updateMatchNum(parseInt(e.target.value));
+          }}
           type='number'
         />
       </div>
       <h5 className='text-white text-center mb-3 mt-8'>
-        Tap <span className='text-blue-500'>blue</span>/
-        <span className='text-red-500'>red</span> square to add a point
+        Tap <span className='text-red-500'>red</span>/
+        <span className='text-blue-500'>blue</span> + and - buttons to
+        add/subtract a point
       </h5>
       <div className='flex w-full mx-auto px-5 sm:px-0 justify-center'>
         <PointBox
