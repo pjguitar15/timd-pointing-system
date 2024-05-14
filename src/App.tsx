@@ -6,7 +6,7 @@ import GameEdit from "./pages/GameEdit";
 import GameProvider from "./Context/GameContextProvider";
 import AllGames from "./pages/AllGames";
 import GameCreate from "./pages/GameCreate";
-import AdminEdit from "./pages/AdminEdit";
+import AdminEdit from "./pages/AdminEdit/AdminEdit";
 
 export default function App() {
   return (
