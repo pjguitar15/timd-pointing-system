@@ -1,5 +1,5 @@
 import { doc, onSnapshot } from "firebase/firestore";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../firebase/firebaseConfig";
 import { DocumentData } from "@firebase/firestore-types";
@@ -29,6 +29,11 @@ const EnterPinModal = ({
   });
   const [showJuryCode, setShowJuryCode] = useState(false);
 
+  const pin1Ref = useRef<HTMLInputElement>(null);
+  const pin2Ref = useRef<HTMLInputElement>(null);
+  const pin3Ref = useRef<HTMLInputElement>(null);
+  const pin4Ref = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     if (selectedId)
       onSnapshot(doc(db, "games", selectedId), (doc) => {
@@ -55,6 +60,19 @@ const EnterPinModal = ({
     navigate(`/game/edit/${selectedId}`);
   };
 
+  const handlePinChange = (
+    value: string,
+    field: keyof typeof pin,
+    nextFieldRef?: React.RefObject<HTMLInputElement>
+  ) => {
+    if (value === "" || /^\d$/.test(value)) {
+      setPin((prev) => ({ ...prev, [field]: value }));
+      if (value && nextFieldRef?.current) {
+        nextFieldRef.current.focus();
+      }
+    }
+  };
+
   return (
     open && (
       <div className='fixed h-screen w-screen inset-0 flex items-center justify-center z-50'>
@@ -74,8 +92,6 @@ const EnterPinModal = ({
             <span className='text-blue-600'>{gameDetails?.player1Name}</span> vs{" "}
             <span className='text-red-600'>{gameDetails?.player2Name}</span>
           </div>
-
-          {/* <hr className='border-slate-300 w-3/4' /> */}
 
           <div className='flex gap-2 mt-4'>
             <p className='text-xs text-slate-500 font-regular'>
@@ -100,60 +116,36 @@ const EnterPinModal = ({
 
           <div className='flex gap-2 w-3/4 h-12 text-2xl'>
             <input
+              ref={pin1Ref}
               value={pin.pin1}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin1: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
+              onChange={(e) => handlePinChange(e.target.value, "pin1", pin2Ref)}
               className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
               type={showJuryCode ? "text" : "password"}
+              maxLength={1}
             />
             <input
+              ref={pin2Ref}
               value={pin.pin2}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin2: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
+              onChange={(e) => handlePinChange(e.target.value, "pin2", pin3Ref)}
               className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
               type={showJuryCode ? "text" : "password"}
+              maxLength={1}
             />
             <input
+              ref={pin3Ref}
               value={pin.pin3}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin3: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
+              onChange={(e) => handlePinChange(e.target.value, "pin3", pin4Ref)}
               className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
               type={showJuryCode ? "text" : "password"}
+              maxLength={1}
             />
             <input
+              ref={pin4Ref}
               value={pin.pin4}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin4: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
+              onChange={(e) => handlePinChange(e.target.value, "pin4")}
               className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
               type={showJuryCode ? "text" : "password"}
+              maxLength={1}
             />
           </div>
 
