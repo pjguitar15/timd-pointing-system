@@ -67,34 +67,34 @@ const GameEdit = () => {
   };
 
   return (
-    <main className='h-screen bg-black flex flex-col justify-center'>
-      <div className='absolute top-6 w-full flex justify-center'>
+    <main className='bg-black min-h-screen flex flex-col justify-center pt-7 pb-12'>
+      <div className='flex flex-col w-full sm:w-[540px] mx-auto px-5 sm:px-0 gap-3'>
         <Link
           to='/all-games'
-          className='text-white border rounded-lg px-4 py-2 text-sm'
+          className='text-white border rounded-lg px-4 py-2 text-sm mx-auto'
         >
           See all games
         </Link>
-      </div>
-      <div className='flex flex-col w-full sm:w-[540px] mx-auto px-5 sm:px-0'>
         <h5 className='text-white text-center mb-3'>
-          Tap <span className='text-blue-500'>blue</span>/
-          <span className='text-red-500'>red</span> square to add a point
+          Tap <span className='text-red-500'>red</span>/
+          <span className='text-blue-500'>blue</span> + button to add a point
         </h5>
-        <JuryPointBox
-          color='red'
-          points={gameItem?.player1Points}
-          name={gameItem?.player1Name}
-          playerNum='1'
-          updatePoint={updatePoint}
-        />
-        <JuryPointBox
-          color='blue'
-          points={gameItem?.player2Points}
-          name={gameItem?.player2Name}
-          playerNum='2'
-          updatePoint={updatePoint}
-        />
+        <div>
+          <JuryPointBox
+            color='red'
+            points={gameItem?.player1Points}
+            name={gameItem?.player1Name}
+            playerNum='1'
+            updatePoint={updatePoint}
+          />
+          <JuryPointBox
+            color='blue'
+            points={gameItem?.player2Points}
+            name={gameItem?.player2Name}
+            playerNum='2'
+            updatePoint={updatePoint}
+          />
+        </div>
       </div>
     </main>
   );

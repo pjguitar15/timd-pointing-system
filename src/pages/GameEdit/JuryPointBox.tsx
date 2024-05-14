@@ -19,8 +19,8 @@ const JuryPointBox = ({
     <div
       className={`px-20 py-12 ${
         color === "blue"
-          ? "bg-blue-600 rounded-tr-lg rounded-br-lg"
-          : "bg-red-600 rounded-tl-lg rounded-bl-lg"
+          ? "bg-blue-600 rounded-bl-lg rounded-br-lg"
+          : "bg-red-600 rounded-tl-lg rounded-tr-lg"
       }  text-white text-center select-none`}
     >
       <h2 className='text-8xl mb-2'>{points}</h2>

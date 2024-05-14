@@ -82,7 +82,7 @@ const EnterPinModal = ({
         ></div>
         <form
           onSubmit={handleEnterPass}
-          className='bg-white text-black z-50 w-3/4 sm:w-8/12 lg:w-6/12 xl:w-4/12 px-12 py-6 flex flex-col items-center justify-center gap-2 rounded relative'
+          className='bg-white text-black z-50 w-11/12 sm:w-8/12 lg:w-6/12 xl:w-4/12 px-4 md:px-12 py-6 flex flex-col items-center justify-center gap-2 rounded relative'
         >
           <IoCloseOutline
             onClick={toggleModal}
@@ -114,7 +114,7 @@ const EnterPinModal = ({
             )}
           </div>
 
-          <div className='flex gap-2 w-3/4 h-12 text-2xl'>
+          <div className='flex gap-2 sm:w-3/4 h-12 text-2xl'>
             <input
               ref={pin1Ref}
               value={pin.pin1}
