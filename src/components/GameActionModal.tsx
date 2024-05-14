@@ -1,4 +1,5 @@
 import { LuView } from "react-icons/lu";
+import { RiAdminLine } from "react-icons/ri";
 import { TbScoreboard } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
 
@@ -7,11 +8,13 @@ const GameActionModal = ({
   selectedId,
   toggleModal,
   openJuryModal,
+  togglePassModal,
 }: {
   open: boolean;
   selectedId: string;
   toggleModal: () => void;
   openJuryModal: () => void;
+  togglePassModal: () => void;
 }) => {
   const navigate = useNavigate();
   return (
@@ -41,6 +44,15 @@ const GameActionModal = ({
               className='text-md font-medium bg-yellow-500 px-4 py-2 rounded w-full flex items-center gap-2 justify-center'
             >
               <TbScoreboard className='text-xl' />I am a jury
+            </button>
+            <button
+              onClick={() => {
+                toggleModal();
+                togglePassModal();
+              }}
+              className='text-md font-medium bg-yellow-500 px-4 py-2 rounded w-full flex items-center gap-2 justify-center'
+            >
+              <RiAdminLine className='text-xl' />I am an admin
             </button>
           </div>
         </div>

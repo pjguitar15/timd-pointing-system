@@ -9,6 +9,7 @@ import unknownFlag from "../assets/no-flag.png";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import GameActionModal from "../components/GameActionModal";
+import EnterPinModal from "../components/EnterPinModal";
 import EnterPassModal from "../components/EnterPassModal";
 
 export type GameDataType = {
@@ -26,6 +27,7 @@ export type GameDataType = {
 const AllGames = () => {
   const [data, setData] = useState<GameDataType[]>([]);
   const [gameActionModalOpen, setGameActionModalOpen] = useState(false);
+  const [enterPinModalOpen, setEnterPinModalOpen] = useState(false);
   const [enterPassModalOpen, setEnterPassModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   useEffect(() => {
@@ -46,7 +48,11 @@ const AllGames = () => {
     setGameActionModalOpen(!gameActionModalOpen);
   };
 
-  const togglePasswordModal = () => {
+  const togglePinModal = () => {
+    setEnterPinModalOpen(!enterPinModalOpen);
+  };
+
+  const togglePassModal = () => {
     setEnterPassModalOpen(!enterPassModalOpen);
   };
 
@@ -55,12 +61,18 @@ const AllGames = () => {
       <GameActionModal
         open={gameActionModalOpen}
         toggleModal={toggleGameActionModal}
-        openJuryModal={togglePasswordModal}
+        openJuryModal={togglePinModal}
+        togglePassModal={togglePassModal}
+        selectedId={selectedId}
+      />
+      <EnterPinModal
+        open={enterPinModalOpen}
+        toggleModal={togglePinModal}
         selectedId={selectedId}
       />
       <EnterPassModal
         open={enterPassModalOpen}
-        toggleModal={togglePasswordModal}
+        toggleModal={togglePassModal}
         selectedId={selectedId}
       />
       <div className='absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]' />

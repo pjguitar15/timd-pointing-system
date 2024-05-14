@@ -21,13 +21,8 @@ const EnterPassModal = ({
   );
   const [isCancel, setIsCancel] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [pin, setPin] = useState({
-    pin1: "",
-    pin2: "",
-    pin3: "",
-    pin4: "",
-  });
-  const [showJuryCode, setShowJuryCode] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (selectedId)
@@ -40,11 +35,10 @@ const EnterPassModal = ({
 
   const handleEnterPass = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const enteredPin = pin.pin1 + pin.pin2 + pin.pin3 + pin.pin4;
     if (isCancel) toggleModal();
-    if (!enteredPin) return;
+    if (!password) return;
 
-    if (enteredPin !== gameDetails?.pin) {
+    if (password !== gameDetails?.password) {
       setErrorMessage("Incorrect password");
       return;
     }
@@ -79,90 +73,42 @@ const EnterPassModal = ({
 
           <div className='flex gap-2 mt-4'>
             <p className='text-xs text-slate-500 font-regular'>
-              Enter PIN Code
+              Enter Admin Password
             </p>
-            {pin.pin1 && (
-              <>
-                {showJuryCode ? (
-                  <FaRegEye
-                    onClick={() => setShowJuryCode(!showJuryCode)}
-                    className='text-slate-500 text-xl cursor-pointer'
-                  />
-                ) : (
-                  <FaRegEyeSlash
-                    onClick={() => setShowJuryCode(!showJuryCode)}
-                    className='text-slate-500 text-xl cursor-pointer'
-                  />
-                )}
-              </>
-            )}
           </div>
 
-          <div className='flex gap-2 w-3/4 h-12 text-2xl'>
+          <div className='w-3/4 relative'>
+            <div className='absolute right-3 top-3'>
+              {password && (
+                <>
+                  {showPass ? (
+                    <FaRegEye
+                      onClick={() => setShowPass(!showPass)}
+                      className='text-slate-500 text-xl cursor-pointer'
+                    />
+                  ) : (
+                    <FaRegEyeSlash
+                      onClick={() => setShowPass(!showPass)}
+                      className='text-slate-500 text-xl cursor-pointer'
+                    />
+                  )}
+                </>
+              )}
+            </div>
             <input
-              value={pin.pin1}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin1: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
-              className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
-              type={showJuryCode ? "text" : "password"}
-            />
-            <input
-              value={pin.pin2}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin2: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
-              className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
-              type={showJuryCode ? "text" : "password"}
-            />
-            <input
-              value={pin.pin3}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin3: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
-              className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
-              type={showJuryCode ? "text" : "password"}
-            />
-            <input
-              value={pin.pin4}
-              onChange={(e) => {
-                const inputDigit = e.target.value.slice(-1); // Get the last entered character
-                if (inputDigit === "" || /^\d$/.test(inputDigit)) {
-                  // Check if the entered character is empty or a digit
-                  setPin((prev) => {
-                    return { ...prev, pin4: inputDigit }; // Update state with the single digit or empty string
-                  });
-                }
-              }}
-              className='py-8 rounded-sm w-full outline-none text-center border bg-slate-100'
-              type={showJuryCode ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className='py-2 px-4 rounded-sm w-full outline-none border bg-slate-100'
+              placeholder='Enter password'
+              type={showPass ? "text" : "password"}
             />
           </div>
-
           <button
             onSubmit={() => {
               setIsCancel(false);
             }}
             type='submit'
-            className='text-sm font-medium bg-yellow-500 px-4 py-2 rounded mt-8 w-3/4'
+            className='text-sm font-medium bg-yellow-500 px-4 py-2 rounded w-3/4'
           >
             Enter
           </button>
