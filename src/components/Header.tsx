@@ -3,9 +3,7 @@ import shia from "../assets/shia.png";
 import legato from "../assets/legato.png";
 import { Link } from "react-router-dom";
 import { BsArrowLeftCircle } from "react-icons/bs";
-import { useGameContext } from "../Context/GameContext";
 const Header = () => {
-  const { gameInfo } = useGameContext();
   return (
     <header className='bg-black w-full'>
       <main className='flex justify-center md:justify-between py-2 px-4 md:px-20 lg:px-24 items-center'>
@@ -29,16 +27,12 @@ const Header = () => {
             alt=''
           />
         </div>
-        {/* Middle */}
-        <div className='flex gap-5 items-center'>
-          <h2 className='text-white md:text-2xl font-medium'>
-            {gameInfo.matchDetails}
-          </h2>
-
-          <button className='md:hidden px-3 py-1 border border-white text-white text-sm rounded-md hover:bg-white hover:text-black'>
-            Go to Edit Mode
-          </button>
-        </div>
+        <Link
+          className='text-white border px-3 py-2 rounded text-sm'
+          to='/all-games'
+        >
+          Back to all games
+        </Link>
         <div className='hidden md:flex gap-4 items-center'>
           <div className='w-28'>
             <img
