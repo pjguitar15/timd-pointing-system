@@ -6,6 +6,7 @@ import GameEdit from "./pages/GameEdit";
 import GameProvider from "./Context/GameContextProvider";
 import AllGames from "./pages/AllGames";
 import GameCreate from "./pages/GameCreate";
+import AdminEdit from "./pages/AdminEdit";
 
 export default function App() {
   return (
@@ -35,6 +36,10 @@ export default function App() {
           <Route
             path='/game/edit/:id'
             element={<GameEdit />}
+          />
+          <Route
+            path='/game/admin/:id'
+            element={<AdminEdit />}
           />
         </Routes>
       </GameProvider>

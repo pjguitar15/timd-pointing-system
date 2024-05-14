@@ -27,7 +27,6 @@ const EnterPassModal = ({
   useEffect(() => {
     if (selectedId)
       onSnapshot(doc(db, "games", selectedId), (doc) => {
-        console.log("Current data: ", doc.data());
         const data = doc.data();
         setGameDetails(data);
       });
@@ -46,7 +45,7 @@ const EnterPassModal = ({
     // success action
     setErrorMessage("");
     toggleModal();
-    navigate(`/game/edit/${selectedId}`);
+    navigate(`/game/admin/${selectedId}`);
   };
 
   return (
