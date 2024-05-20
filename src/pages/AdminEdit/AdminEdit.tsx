@@ -137,20 +137,47 @@ const GameEdit = () => {
 
   return (
     <main className='h-screen bg-black flex flex-col justify-center'>
-      <h1 className='text-white text-center text-[6rem]'>
-        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-      </h1>
-      <div className='flex mx-auto gap-2 items-center'>
-        <h3 className='text-white text-xl'>Match</h3>
-        <input
-          className='bg-slate-200 mx-auto text-center ps-3 py-2 text-4xl border rounded outline-none w-12'
-          value={matchNum}
-          onChange={(e) => {
-            setMatchNum(e.target.value ? parseInt(e.target.value) : undefined);
-            updateMatchNum(parseInt(e.target.value));
-          }}
-          type='number'
-        />
+      <div className='flex justify-center gap-12 mb-4'>
+        <div>
+          <h1 className='text-white text-center text-[6rem]'>
+            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+          </h1>
+          <div className='flex justify-center gap-2'>
+            <button
+              onClick={isRunning ? pauseTimer : startTimer}
+              className={`${
+                isRunning ? "bg-yellow-500" : "bg-green-500"
+              }  px-4 py-1 rounded font-medium text-slate-950`}
+            >
+              {isRunning ? "Pause" : "Start"}
+            </button>
+            <button
+              onClick={() => {
+                setMinutes(2);
+                setSeconds(0);
+                setIsRunning(false);
+              }}
+              className='bg-slate-500 text-white px-4 py-1 rounded font-medium'
+            >
+              Restart
+            </button>
+          </div>
+        </div>
+        <div className='w-1 h-full bg-white'></div>
+        <div className='flex flex-col gap-2 items-center mt-8 justify-center'>
+          <input
+            className='bg-slate-200 text-center ps-3 py-2 text-7xl border rounded outline-none w-20 mx-0'
+            value={matchNum}
+            onChange={(e) => {
+              setMatchNum(
+                e.target.value ? parseInt(e.target.value) : undefined
+              );
+              updateMatchNum(parseInt(e.target.value));
+            }}
+            type='number'
+          />
+          <h3 className='text-white text-lg'>Match</h3>
+        </div>
       </div>
       <h5 className='text-white text-center mb-3 mt-8'>
         Tap <span className='text-red-500'>red</span>/
@@ -174,28 +201,13 @@ const GameEdit = () => {
         />
       </div>
       <div className='flex justify-center mt-5 gap-2'>
-        <button
-          onClick={startTimer}
-          className='bg-yellow-500 px-4 py-1 rounded font-medium'
+        <Link
+          to='/all-games'
+          className='bg-red-600 px-4 py-1 rounded font-medium text-white'
         >
-          Start Time
-        </button>
-        <button
-          onClick={pauseTimer}
-          className='bg-yellow-500 px-4 py-1 rounded font-medium'
-        >
-          Pause Time
-        </button>
-        <button className='bg-red-600 px-4 py-1 rounded font-medium text-white'>
           End Game
-        </button>
+        </Link>
       </div>
-      <Link
-        to='/all-games'
-        className='text-white border rounded-lg px-4 py-2 text-sm mx-auto mt-5'
-      >
-        Back to Game Select
-      </Link>
     </main>
   );
 };
