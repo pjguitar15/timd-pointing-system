@@ -46,14 +46,20 @@ const Game = () => {
           points={gameItem?.player1Points}
         />
         <div className='hidden md:flex'>
-          <CenterInfo matchNumber={gameItem?.matchNumber} />
+          <CenterInfo
+            matchNumber={gameItem?.matchNumber}
+            isTimeRunning={gameItem?.isTimeRunning}
+          />
         </div>
         <PlayerPoint
           color='blue'
           points={gameItem?.player2Points}
         />
         <div className='flex md:hidden'>
-          <CenterInfo matchNumber={gameItem?.matchNumber} />
+          <CenterInfo
+            matchNumber={gameItem?.matchNumber}
+            isTimeRunning={gameItem?.isTimeRunning}
+          />
         </div>
       </div>
     </main>
