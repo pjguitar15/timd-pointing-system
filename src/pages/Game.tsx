@@ -48,7 +48,7 @@ const Game = () => {
         <div className='hidden md:flex'>
           <CenterInfo
             matchNumber={gameItem?.matchNumber}
-            isTimeRunning={gameItem?.isTimeRunning}
+            timeStatus={gameItem?.timeStatus}
           />
         </div>
         <PlayerPoint
@@ -58,7 +58,7 @@ const Game = () => {
         <div className='flex md:hidden'>
           <CenterInfo
             matchNumber={gameItem?.matchNumber}
-            isTimeRunning={gameItem?.isTimeRunning}
+            timeStatus={gameItem?.timeStatus}
           />
         </div>
       </div>

@@ -87,7 +87,7 @@ export const startTimer = (
     setIsRunning(true);
   }
 
-  updateIsTimeRunning(id, true);
+  updateIsTimeRunning(id, "on-going");
 };
 
 export const pauseTimer = (
@@ -95,7 +95,7 @@ export const pauseTimer = (
   id: string | undefined
 ) => {
   setIsRunning(false);
-  updateIsTimeRunning(id, false);
+  updateIsTimeRunning(id, "paused");
 };
 
 export const restartTimer = (
@@ -107,12 +107,12 @@ export const restartTimer = (
   setMinutes(2);
   setSeconds(0);
   setIsRunning(false);
-  updateIsTimeRunning(id, false);
+  updateIsTimeRunning(id, "reset");
 };
 
 export const updateIsTimeRunning = async (
   id: string | undefined,
-  updateItem: boolean
+  updateItem: string
 ) => {
   if (id) {
     const chatDocRef = doc(db, "games", id);
@@ -120,7 +120,8 @@ export const updateIsTimeRunning = async (
     try {
       await setDoc(
         chatDocRef,
-        { isTimeRunning: updateItem },
+        // timeStatus: "on-going" | "paused" | "reset"
+        { timeStatus: updateItem },
         { merge: true } // Merge with existing document data
       );
       console.log("Document updated successfully!");

@@ -2,45 +2,62 @@ import { useState, useEffect, useRef } from "react";
 
 const CenterInfo = ({
   matchNumber,
-  isTimeRunning,
+  timeStatus,
 }: {
   matchNumber: number | undefined;
-  isTimeRunning: boolean;
+  timeStatus: string;
 }) => {
   const [minutes, setMinutes] = useState(2);
   const [seconds, setSeconds] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (isTimeRunning) {
-      const updateTimer = () => {
-        setSeconds((prevSeconds) => {
-          if (prevSeconds === 0) {
-            if (minutes === 0) {
-              clearInterval(intervalRef.current!);
-              return 0;
-            }
-            setMinutes((prevMinutes) => prevMinutes - 1);
-            return 59;
-          }
-          return prevSeconds - 1;
-        });
-      };
+  const updateTimer = () => {
+    setSeconds((prevSeconds) => {
+      if (prevSeconds === 0) {
+        if (minutes === 0) {
+          clearInterval(intervalRef.current!);
+          return 0;
+        }
+        setMinutes((prevMinutes) => prevMinutes - 1);
+        return 59;
+      }
+      return prevSeconds - 1;
+    });
+  };
 
-      intervalRef.current = setInterval(updateTimer, 1000);
-      return () => clearInterval(intervalRef.current!);
-    } else {
+  useEffect(() => {
+    if (timeStatus === "on-going") {
+      if (!intervalRef.current) {
+        intervalRef.current = setInterval(updateTimer, 1000);
+      }
+      updateTimer(); // Call updateTimer immediately to remove delay
+    } else if (timeStatus === "paused") {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    } else if (timeStatus === "reset") {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      setMinutes(2);
+      setSeconds(0);
+    }
+
+    return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-    }
-  }, [isTimeRunning, minutes]);
+    };
+  }, [timeStatus]);
 
   // Ensure timer stops exactly at 00:00
   useEffect(() => {
     if (minutes === 0 && seconds === 0) {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     }
   }, [minutes, seconds]);
