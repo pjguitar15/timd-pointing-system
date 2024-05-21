@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 type PointBoxType = {
   color: "red" | "blue";
   points: number;
@@ -6,7 +8,8 @@ type PointBoxType = {
   updatePoint: (
     color: "red" | "blue",
     operation: "add" | "subtract",
-    num: number
+    num: number,
+    id: string | undefined
   ) => void;
 };
 
@@ -19,6 +22,7 @@ const PointBox = ({
   playerNum,
   updatePoint,
 }: PointBoxType) => {
+  const params = useParams();
   return (
     <div
       className={`p-20 ${
@@ -37,7 +41,8 @@ const PointBox = ({
               updatePoint(
                 color,
                 item.slice(0, 1) === "+" ? "add" : "subtract",
-                item.slice(1) === "1" ? 1 : 2
+                item.slice(1) === "1" ? 1 : 2,
+                params.id
               )
             }
             key={index}
