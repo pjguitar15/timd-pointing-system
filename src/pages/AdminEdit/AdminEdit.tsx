@@ -8,7 +8,7 @@ import PointBox from "./PointBox";
 import { getTime, updatePoint } from "./AdminFunctions";
 import TimerAndMatch from "./TimerAndMatch";
 
-const GameEdit = () => {
+const AdminEdit = () => {
   const [gameItem, setGameItem] = useState<DocumentData | null | undefined>(
     null
   );
@@ -119,4 +119,4 @@ const GameEdit = () => {
   );
 };
 
-export default GameEdit;
+export default AdminEdit;

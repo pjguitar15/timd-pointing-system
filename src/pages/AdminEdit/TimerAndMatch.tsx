@@ -1,5 +1,10 @@
 import { SetStateAction } from "react";
-import { pauseTimer, startTimer, updateMatchNum } from "./AdminFunctions";
+import {
+  pauseTimer,
+  restartTimer,
+  startTimer,
+  updateMatchNum,
+} from "./AdminFunctions";
 import { useParams } from "react-router-dom";
 
 type TimerAndMatchType = {
@@ -36,13 +41,14 @@ const TimerAndMatch = ({
           <button
             onClick={() =>
               isRunning
-                ? pauseTimer(setIsRunning)
+                ? pauseTimer(setIsRunning, params.id)
                 : startTimer(
                     isRunning,
                     deadlineRef,
                     minutes,
                     seconds,
-                    setIsRunning
+                    setIsRunning,
+                    params.id
                   )
             }
             className={`${
@@ -53,9 +59,7 @@ const TimerAndMatch = ({
           </button>
           <button
             onClick={() => {
-              setMinutes(2);
-              setSeconds(0);
-              setIsRunning(false);
+              restartTimer(setMinutes, setSeconds, setIsRunning, params.id);
             }}
             className='bg-slate-500 text-white px-4 py-1 rounded font-medium'
           >

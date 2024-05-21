@@ -77,7 +77,8 @@ export const startTimer = (
   deadlineRef: React.MutableRefObject<number>,
   minutes: number,
   seconds: number,
-  setIsRunning: React.Dispatch<SetStateAction<boolean>>
+  setIsRunning: React.Dispatch<SetStateAction<boolean>>,
+  id: string | undefined
 ) => {
   if (!isRunning) {
     deadlineRef.current = new Date(
@@ -85,10 +86,46 @@ export const startTimer = (
     ).getTime();
     setIsRunning(true);
   }
+
+  updateIsTimeRunning(id, true);
 };
 
 export const pauseTimer = (
-  setIsRunning: React.Dispatch<SetStateAction<boolean>>
+  setIsRunning: React.Dispatch<SetStateAction<boolean>>,
+  id: string | undefined
 ) => {
   setIsRunning(false);
+  updateIsTimeRunning(id, false);
+};
+
+export const restartTimer = (
+  setMinutes: React.Dispatch<SetStateAction<number>>,
+  setSeconds: React.Dispatch<SetStateAction<number>>,
+  setIsRunning: React.Dispatch<SetStateAction<boolean>>,
+  id: string | undefined
+) => {
+  setMinutes(2);
+  setSeconds(0);
+  setIsRunning(false);
+  updateIsTimeRunning(id, false);
+};
+
+export const updateIsTimeRunning = async (
+  id: string | undefined,
+  updateItem: boolean
+) => {
+  if (id) {
+    const chatDocRef = doc(db, "games", id);
+
+    try {
+      await setDoc(
+        chatDocRef,
+        { isTimeRunning: updateItem },
+        { merge: true } // Merge with existing document data
+      );
+      console.log("Document updated successfully!");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+    }
+  }
 };
