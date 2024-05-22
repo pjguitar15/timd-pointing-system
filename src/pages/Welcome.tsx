@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import TIMDLogo from "../assets/TIMD.png";
+import WelcomeImage from "../assets/homepage-img.png";
 
 const Welcome = () => {
   return (
@@ -9,6 +10,11 @@ const Welcome = () => {
         <img
           className='size-40 mx-auto'
           src={TIMDLogo}
+          alt=''
+        />
+        <img
+          className='w-[45%] mt-7'
+          src={WelcomeImage}
           alt=''
         />
         <div className='text-center z-50'>
@@ -26,6 +32,7 @@ const Welcome = () => {
             </a>
           </div>
         </div>
+
         <Link
           to='/game-select'
           className='px-7 py-1 bg-yellow-500 text-slate-950 text-lg font-semibold'
